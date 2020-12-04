@@ -1,12 +1,19 @@
 import "./App.css";
-import Layout from "./components/Layout";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Home from "./containers/Home";
+import SignUp from "./containers/SignUp";
+import SignIn from "./containers/SignIn";
 
 function App() {
 	return (
 		<div className="App">
-			<Layout>
-				<h1>Halo Dunia</h1>
-			</Layout>
+			<Router>
+				<Switch>
+					<Route path="/" component={Home} />
+					<Route path="/signin" component={SignUp} />
+					<Route path="/signup" component={SignIn} />
+				</Switch>
+			</Router>
 		</div>
 	);
 }
