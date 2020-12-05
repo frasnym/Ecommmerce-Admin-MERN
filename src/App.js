@@ -10,6 +10,7 @@ import PrivateRoute from "./components/HOC/PrivateRoute";
 import { isUserLoggedIn } from "./actions";
 import Products from "./containers/Products";
 import Orders from "./containers/Orders";
+import Categories from "./containers/Categories";
 
 function App() {
 	const dispatch = useDispatch();
@@ -27,6 +28,7 @@ function App() {
 				<PrivateRoute path="/" exact component={Home} />
 				<PrivateRoute path="/products" component={Products} />
 				<PrivateRoute path="/orders" component={Orders} />
+				<PrivateRoute path="/categories" component={Categories} />
 
 				<Route path="/signin" component={SignIn} />
 				<Route path="/signup" component={SignUp} />

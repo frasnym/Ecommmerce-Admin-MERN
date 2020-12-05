@@ -21,6 +21,11 @@ export default function Layout(props) {
 								<li>
 									<NavLink to={"/orders"}>Orders</NavLink>
 								</li>
+								<li>
+									<NavLink to={"/categories"}>
+										Categories
+									</NavLink>
+								</li>
 							</ul>
 						</Col>
 						<Col md={10} style={{ marginLeft: "auto" }}>

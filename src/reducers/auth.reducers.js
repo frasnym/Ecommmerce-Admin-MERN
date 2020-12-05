@@ -25,6 +25,7 @@ const authReducers = (state = initState, action) => {
 				loading: true,
 			};
 			break;
+
 		case authConstants.LOGIN_SUCCESS:
 			state = {
 				...state,
