@@ -1,12 +1,21 @@
 import axios from "axios";
 import { api } from "../urlConfig";
 
-const exiosInstance = axios.create({
-	baseURL: api,
-	headers: {
-		"Accept-Language": "id",
-		// 'Authorization': ''
-	},
-});
+const axiosInstance = axios.create();
 
-export default exiosInstance;
+// Request interceptor for API calls
+axiosInstance.interceptors.request.use(
+	async (config) => {
+		config.baseURL = api;
+		config.headers = {
+			"Accept-Language": "id",
+			Authorization: `Bearer ${localStorage.getItem("token")}`,
+		};
+		return config;
+	},
+	(error) => {
+		Promise.reject(error);
+	}
+);
+
+export default axiosInstance;

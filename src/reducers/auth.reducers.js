@@ -9,6 +9,9 @@ const initState = {
 	},
 	authenticate: false,
 	authenticating: false,
+	loading: false,
+	error: null,
+	message: "",
 };
 
 const authReducers = (state = initState, action) => {
@@ -32,7 +35,20 @@ const authReducers = (state = initState, action) => {
 			break;
 		case authConstants.LOGOUT_REQUEST:
 			state = {
+				...state,
+				loading: true,
+			};
+			break;
+		case authConstants.LOGOUT_SUCCESS:
+			state = {
 				...initState,
+			};
+			break;
+		case authConstants.LOGOUT_FAILURE:
+			state = {
+				...state,
+				error: action.payload.error,
+				loading: false,
 			};
 			break;
 		default:
