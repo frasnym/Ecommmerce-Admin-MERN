@@ -32,6 +32,10 @@ export default function SignIn() {
 		return <Redirect to={"/"} />;
 	}
 
+	if (auth.loading) {
+		return <p>Loading....</p>;
+	}
+
 	return (
 		<Layout>
 			<Container>
