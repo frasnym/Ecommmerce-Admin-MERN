@@ -1,19 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import Layout from "../../components/Layout";
 import Input from "../../components/UI/Input";
 import { login } from "../../actions";
 import { useDispatch } from "react-redux";
+import ip from "ip";
 
 export default function SignIn() {
+	const [email, setEmail] = useState("an1@example.com"); // state value
+	const [password, setPassword] = useState("1234567"); // state value
+	const [error, setError] = useState("");
+
 	const dispatch = useDispatch();
 
 	const userLogin = (e) => {
 		e.preventDefault(); // disable redirect page
 
 		const user = {
-			email: "mico@example.com",
-			password: "123456",
+			email_address: email,
+			password,
+			ip_address: ip.address(),
 		};
 
 		dispatch(login(user)); // execute "actions"
@@ -29,15 +35,15 @@ export default function SignIn() {
 								label="Email Address"
 								type="email"
 								placeholder="Enter email"
-								value=""
-								onChange={() => {}}
+								value={email}
+								onChange={(e) => setEmail(e.target.value)}
 							/>
 							<Input
 								label="Password"
 								type="password"
 								placeholder="Enter password"
-								value=""
-								onChange={() => {}}
+								value={password}
+								onChange={(e) => setPassword(e.target.value)}
 							/>
 							<Button variant="primary" type="submit">
 								Submit
