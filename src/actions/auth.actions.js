@@ -58,3 +58,13 @@ export const isUserLoggedIn = () => {
 		}
 	};
 };
+
+export const signout = () => {
+	return async (dispatch) => {
+		// TODO Logout API Call
+		localStorage.clear();
+		dispatch({
+			type: authConstants.LOGOUT_REQUEST,
+		});
+	};
+};

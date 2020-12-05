@@ -30,6 +30,11 @@ const authReducers = (state = initState, action) => {
 				authenticating: false,
 			};
 			break;
+		case authConstants.LOGOUT_REQUEST:
+			state = {
+				...initState,
+			};
+			break;
 		default:
 			break;
 	}
