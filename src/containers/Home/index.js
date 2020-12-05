@@ -1,17 +1,21 @@
 import React from "react";
-import { Jumbotron } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import Layout from "../../components/Layout";
+import "./style.css";
 
 export default function Home() {
 	return (
 		<Layout>
-			<Jumbotron
-				style={{ margin: "5rem", background: "white" }}
-				className="text-center"
-			>
-				<h1>Welcome to Admin Dashboard</h1>
-				<p>lorem</p>
-			</Jumbotron>
+			<Container fluid>
+				<Row>
+					<Col md={2} className="sidebar">
+						Side
+					</Col>
+					<Col md={10} style={{ marginLeft: "auto" }}>
+						Main
+					</Col>
+				</Row>
+			</Container>
 		</Layout>
 	);
 }
