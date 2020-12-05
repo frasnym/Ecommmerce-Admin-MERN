@@ -1,17 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import { Redirect } from "react-router-dom";
+import ip from "ip";
+
 import Layout from "../../components/Layout";
 import Input from "../../components/UI/Input";
-import { login } from "../../actions";
-import { useDispatch } from "react-redux";
-import ip from "ip";
+import { isUserLoggedIn, login } from "../../actions";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function SignIn() {
 	const [email, setEmail] = useState("an1@example.com"); // state value
 	const [password, setPassword] = useState("1234567"); // state value
 	const [error, setError] = useState("");
+	const auth = useSelector((state) => state.auth);
 
 	const dispatch = useDispatch();
+
+	useEffect(() => {
+		if (!auth.authenticate) {
+			dispatch(isUserLoggedIn());
+		}
+	});
 
 	const userLogin = (e) => {
 		e.preventDefault(); // disable redirect page
@@ -24,6 +33,10 @@ export default function SignIn() {
 
 		dispatch(login(user)); // execute "actions"
 	};
+
+	if (auth.authenticate) {
+		return <Redirect to={"/"} />;
+	}
 
 	return (
 		<Layout>
