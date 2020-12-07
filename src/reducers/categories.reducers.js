@@ -23,6 +23,26 @@ const categoriesReducers = (state = initState, action) => {
 			};
 			break;
 
+		case categoriesConstants.ADD_NEW_CATEGORIES_REQUEST:
+			state = {
+				...state,
+				loading: true,
+			};
+			break;
+
+		case categoriesConstants.ADD_NEW_CATEGORIES_SUCCESS:
+			state = {
+				...state,
+				loading: false,
+			};
+			break;
+
+		case categoriesConstants.ADD_NEW_CATEGORIES_FAILURE:
+			state = {
+				...initState,
+			};
+			break;
+
 		default:
 			break;
 	}

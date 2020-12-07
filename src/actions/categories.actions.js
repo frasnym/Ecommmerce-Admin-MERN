@@ -26,3 +26,24 @@ export const getAllCategories = () => {
 		}
 	};
 };
+
+export const addCategory = (form) => {
+	return async (dispatch) => {
+		dispatch({
+			type: categoriesConstants.ADD_NEW_CATEGORIES_REQUEST,
+		});
+		const res = await axios.post("/categories", form);
+
+		if (res.status === 201) {
+			dispatch({
+				type: categoriesConstants.ADD_NEW_CATEGORIES_SUCCESS,
+				payload: res.data.data,
+			});
+		} else {
+			dispatch({
+				type: categoriesConstants.ADD_NEW_CATEGORIES_FAILURE,
+				payload: res.data.message,
+			});
+		}
+	};
+};
