@@ -20,7 +20,7 @@ export const getAllCategories = () => {
 			dispatch({
 				type: categoriesConstants.GET_ALL_CATEGORIES_FAILURE,
 				payload: {
-					error: res.message,
+					error: res.data.message,
 				},
 			});
 		}

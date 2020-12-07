@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { addProduct } from "../../actions";
 
@@ -22,6 +22,7 @@ export default function Products() {
 	const [images, setImages] = useState([]);
 
 	const category = useSelector((state) => state.categories);
+	const product = useSelector((state) => state.products);
 	const dispatch = useDispatch();
 	// useEffect(() => {
 	// 	dispatch(getAllCategories());
@@ -59,6 +60,40 @@ export default function Products() {
 		setImages([...images, e.target.files[0]]);
 	};
 
+	const renderProducts = () => {
+		console.log("product.products", product.products);
+		return (
+			<Table responsive="sm">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Name</th>
+						<th>Price</th>
+						<th>Quantity</th>
+						<th>Description</th>
+						<th>Images</th>
+						<th>Category</th>
+					</tr>
+				</thead>
+				<tbody>
+					{product.products.length > 0
+						? product.products.map((product, index) => (
+								<tr key={product._id}>
+									<td>{index + 1}</td>
+									<td>{product.name}</td>
+									<td>{product.price}</td>
+									<td>{product.quantity}</td>
+									<td>{product.description}</td>
+									<td>--</td>
+									<td>{product.category}</td>
+								</tr>
+						  ))
+						: null}
+				</tbody>
+			</Table>
+		);
+	};
+
 	return (
 		<Layout sidebar>
 			<Container>
@@ -74,6 +109,9 @@ export default function Products() {
 							<button onClick={handleShow}>Add</button>
 						</div>
 					</Col>
+				</Row>
+				<Row>
+					<Col>{renderProducts()}</Col>
 				</Row>
 			</Container>
 			<Modal

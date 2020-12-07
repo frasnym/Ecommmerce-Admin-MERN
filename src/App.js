@@ -7,7 +7,7 @@ import Home from "./containers/Home";
 import SignUp from "./containers/SignUp";
 import SignIn from "./containers/SignIn";
 import PrivateRoute from "./components/HOC/PrivateRoute";
-import { getAllCategories, isUserLoggedIn } from "./actions";
+import { getAllCategories, isUserLoggedIn, getInitialData } from "./actions";
 import Products from "./containers/Products";
 import Orders from "./containers/Orders";
 import Categories from "./containers/Categories";
@@ -21,6 +21,7 @@ function App() {
 			dispatch(isUserLoggedIn());
 		}
 		dispatch(getAllCategories());
+		dispatch(getInitialData());
 	});
 
 	return (

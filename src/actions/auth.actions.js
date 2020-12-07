@@ -75,7 +75,7 @@ export const signout = () => {
 			dispatch({
 				type: authConstants.LOGOUT_FAILURE,
 				payload: {
-					error: res.message,
+					error: res.data.message,
 				},
 			});
 		}
