@@ -28,6 +28,9 @@ export default function Categories() {
 		form.append("imageUrl", image);
 		dispatch(addCategory(form));
 
+		setName("");
+		setParentId("");
+
 		setShow(false);
 	};
 	const handleShow = () => setShow(true);
