@@ -24,7 +24,7 @@ export default function Categories() {
 		const form = new FormData();
 
 		form.append("name", name);
-		form.append("parentId", parentId);
+		if (parentId) form.append("parentId", parentId);
 		form.append("imageUrl", image);
 		dispatch(addCategory(form));
 
