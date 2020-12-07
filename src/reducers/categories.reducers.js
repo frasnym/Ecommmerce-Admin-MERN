@@ -6,6 +6,44 @@ const initState = {
 	error: null,
 };
 
+const buildNewCategories = (parentId, categories, category) => {
+	let myCategories = [];
+	for (const cat of categories) {
+		if (cat._id === parentId) {
+			myCategories.push({
+				...cat,
+				children:
+					cat.children && cat.children.length > 0
+						? buildNewCategories(
+								parentId,
+								[
+									...cat.children,
+									{
+										_id: category._id,
+										name: category.name,
+										slug: category.slug,
+										parentId: category.parentId,
+										children: category.children,
+									},
+								],
+								category
+						  )
+						: [],
+			});
+		} else {
+			myCategories.push({
+				...cat,
+				children:
+					cat.children && cat.children.length > 0
+						? buildNewCategories(parentId, cat.children, category)
+						: [],
+			});
+		}
+	}
+
+	return myCategories;
+};
+
 const categoriesReducers = (state = initState, action) => {
 	switch (action.type) {
 		case categoriesConstants.GET_ALL_CATEGORIES_REQUEST:
@@ -34,6 +72,11 @@ const categoriesReducers = (state = initState, action) => {
 			state = {
 				...state,
 				loading: false,
+				categories: buildNewCategories(
+					action.payload.category.parentId,
+					state.categories,
+					action.payload.category
+				),
 			};
 			break;
 

@@ -37,7 +37,7 @@ export const addCategory = (form) => {
 		if (res.status === 201) {
 			dispatch({
 				type: categoriesConstants.ADD_NEW_CATEGORIES_SUCCESS,
-				payload: res.data.data,
+				payload: { category: res.data.data },
 			});
 		} else {
 			dispatch({
