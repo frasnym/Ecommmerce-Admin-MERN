@@ -42,7 +42,7 @@ export default function Header() {
 	};
 
 	return (
-		<Navbar bg="light" expand="lg" style={{ zIndex: 1 }}>
+		<Navbar bg="light" fixed="top" expand="lg" style={{ zIndex: 1 }}>
 			<Container fluid>
 				<Link to="/" className="navbar-brand">
 					Admin Dashboard
