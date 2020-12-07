@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Button, Col, Container, Modal, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllCategories, addProduct } from "../../actions";
+import { addProduct } from "../../actions";
 
 import Layout from "../../components/Layout";
 import Input from "../../components/UI/Input";
@@ -22,10 +22,9 @@ export default function Products() {
 
 	const category = useSelector((state) => state.categories);
 	const dispatch = useDispatch();
-
-	useEffect(() => {
-		dispatch(getAllCategories());
-	}, [dispatch]);
+	// useEffect(() => {
+	// 	dispatch(getAllCategories());
+	// }, [dispatch]);
 
 	const handleClose = () => {
 		const form = new FormData();

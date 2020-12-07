@@ -1,23 +1,24 @@
-import React, { useEffect, useState } from "react";
+// import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Button, Col, Container, Modal, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 
-import { addCategory, getAllCategories } from "../../actions";
+// import { addCategory, getAllCategories } from "../../actions";
+import { addCategory } from "../../actions";
 import Layout from "../../components/Layout";
 import Input from "../../components/UI/Input";
 
 export default function Categories() {
 	const category = useSelector((state) => state.categories);
 	const dispatch = useDispatch();
+	// useEffect(() => {
+	// 	dispatch(getAllCategories());
+	// }, [dispatch]);
 
 	const [show, setShow] = useState(false);
 	const [name, setName] = useState();
 	const [image, setImage] = useState();
 	const [parentId, setParentId] = useState();
-
-	useEffect(() => {
-		dispatch(getAllCategories());
-	}, [dispatch]);
 
 	const handleClose = () => {
 		const form = new FormData();
