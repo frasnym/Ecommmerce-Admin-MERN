@@ -9,8 +9,6 @@ export const getInitialData = () => {
 		const res = await axios.get("/products");
 
 		if (res.status === 200) {
-			console.log("res.data", res.data);
-			console.log("res.data.data", res.data.data);
 			dispatch({
 				type: productsConstants.GET_ALL_PRODUCTS_SUCCESS,
 				payload: {

@@ -6,9 +6,12 @@ import { addProduct } from "../../actions";
 import Layout from "../../components/Layout";
 import Input from "../../components/UI/Input";
 import Modal from "../../components/UI/Modal";
+import "./style.css";
 
 export default function Products() {
 	const [show, setShow] = useState(false);
+	const [productDetailModal, setProductDetailModal] = useState(false);
+	const [productDetail, setProductDetail] = useState(null);
 
 	const [name, setName] = useState(
 		"Samsung Galaxy Z Flip (8GB/256GB) - Mirror Black"
@@ -61,31 +64,31 @@ export default function Products() {
 	};
 
 	const renderProducts = () => {
-		console.log("product.products", product.products);
 		return (
-			<Table responsive="sm">
+			<Table style={{ fontSize: 12 }} responsive="sm">
 				<thead>
 					<tr>
 						<th>#</th>
 						<th>Name</th>
 						<th>Price</th>
 						<th>Quantity</th>
-						<th>Description</th>
-						<th>Images</th>
 						<th>Category</th>
 					</tr>
 				</thead>
 				<tbody>
 					{product.products.length > 0
 						? product.products.map((product, index) => (
-								<tr key={product._id}>
+								<tr
+									onClick={() =>
+										showProductDetailModal(product)
+									}
+									key={product._id}
+								>
 									<td>{index + 1}</td>
 									<td>{product.name}</td>
 									<td>{product.price}</td>
 									<td>{product.quantity}</td>
-									<td>{product.description}</td>
-									<td>--</td>
-									<td>{product.category}</td>
+									<td>{product.category.name}</td>
 								</tr>
 						  ))
 						: null}
@@ -94,26 +97,8 @@ export default function Products() {
 		);
 	};
 
-	return (
-		<Layout sidebar>
-			<Container>
-				<Row>
-					<Col md={12}>
-						<div
-							style={{
-								display: "flex",
-								justifyContent: "space-between",
-							}}
-						>
-							<h3>Products</h3>
-							<button onClick={handleShow}>Add</button>
-						</div>
-					</Col>
-				</Row>
-				<Row>
-					<Col>{renderProducts()}</Col>
-				</Row>
-			</Container>
+	const rendedAddProductModal = () => {
+		return (
 			<Modal
 				show={show}
 				handleClose={handleClose}
@@ -164,6 +149,85 @@ export default function Products() {
 					: null}
 				<input type="file" name="images" onChange={handleImages} />
 			</Modal>
+		);
+	};
+
+	const showProductDetailModal = (product) => {
+		setProductDetail(product);
+		setProductDetailModal(true);
+	};
+	const renderProductDetailModal = () => {
+		if (!productDetail) {
+			return null;
+		}
+		return (
+			<Modal
+				show={productDetailModal}
+				handleClose={() => setProductDetailModal(false)}
+				modalTitle={"Product Detail"}
+				size="lg"
+			>
+				<Row>
+					<Col md="6">
+						<label className="key">Name</label>
+						<p className="value">{productDetail.name}</p>
+					</Col>
+					<Col md="6">
+						<label className="key">Price</label>
+						<p className="value">{productDetail.price}</p>
+					</Col>
+					<Col md="6">
+						<label className="key">Quantity</label>
+						<p className="value">{productDetail.quantity}</p>
+					</Col>
+					<Col md="6">
+						<label className="key">Category</label>
+						<p className="value">{productDetail.category.name}</p>
+					</Col>
+					<Col md="12">
+						<label className="key">Description</label>
+						<p className="value">{productDetail.description}</p>
+					</Col>
+					<Col>
+						<label className="key">Images</label>
+						<p className="value">
+							{productDetail.images.map((image) => {
+								return (
+									<img
+										src={image.full_url}
+										alt={product._id}
+									/>
+								);
+							})}
+						</p>
+					</Col>
+				</Row>
+			</Modal>
+		);
+	};
+
+	return (
+		<Layout sidebar>
+			<Container>
+				<Row>
+					<Col md={12}>
+						<div
+							style={{
+								display: "flex",
+								justifyContent: "space-between",
+							}}
+						>
+							<h3>Products</h3>
+							<button onClick={handleShow}>Add</button>
+						</div>
+					</Col>
+				</Row>
+				<Row>
+					<Col>{renderProducts()}</Col>
+				</Row>
+			</Container>
+			{rendedAddProductModal()}
+			{renderProductDetailModal()}
 		</Layout>
 	);
 }
