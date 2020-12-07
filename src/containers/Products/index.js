@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { Button, Col, Container, Modal, Row } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { addProduct } from "../../actions";
 
 import Layout from "../../components/Layout";
 import Input from "../../components/UI/Input";
+import Modal from "../../components/UI/Modal";
 
 export default function Products() {
 	const [show, setShow] = useState(false);
@@ -75,66 +76,55 @@ export default function Products() {
 					</Col>
 				</Row>
 			</Container>
-			<Modal show={show} onHide={handleClose}>
-				<Modal.Header closeButton>
-					<Modal.Title>Add New Products</Modal.Title>
-				</Modal.Header>
-				<Modal.Body>
-					<Input
-						type="text"
-						placeholder="Enter name"
-						value={name}
-						onChange={(e) => setName(e.target.value)}
-					/>
-					<Input
-						type="text"
-						placeholder="Enter price"
-						value={price}
-						onChange={(e) => setPrice(e.target.value)}
-					/>
-					<Input
-						type="text"
-						placeholder="Enter quantity"
-						value={quantity}
-						onChange={(e) => setQuantity(e.target.value)}
-					/>
-					<Input
-						type="text"
-						placeholder="Enter description"
-						value={description}
-						onChange={(e) => setDescription(e.target.value)}
-					/>
-					<select
-						className="form-control"
-						value={categoryId}
-						onChange={(e) => setCategoryId(e.target.value)}
-					>
-						<option>select a category</option>
-						{createCategoryList(category.categories).map(
-							(option) => {
-								return (
-									<option
-										key={option.value}
-										value={option.value}
-									>
-										{option.name}
-									</option>
-								);
-							}
-						)}
-					</select>
-					{images.length > 0
-						? images.map((pic, index) => (
-								<div key={index}>{pic.name}</div>
-						  ))
-						: null}
-					<input type="file" name="images" onChange={handleImages} />
-				</Modal.Body>
-				<Modal.Footer>
-					<Button variant="primary" onClick={handleClose}>
-						Save Changes
-					</Button>
-				</Modal.Footer>
+			<Modal
+				show={show}
+				handleClose={handleClose}
+				modalTitle={"Add New Products"}
+			>
+				<Input
+					type="text"
+					placeholder="Enter name"
+					value={name}
+					onChange={(e) => setName(e.target.value)}
+				/>
+				<Input
+					type="text"
+					placeholder="Enter price"
+					value={price}
+					onChange={(e) => setPrice(e.target.value)}
+				/>
+				<Input
+					type="text"
+					placeholder="Enter quantity"
+					value={quantity}
+					onChange={(e) => setQuantity(e.target.value)}
+				/>
+				<Input
+					type="text"
+					placeholder="Enter description"
+					value={description}
+					onChange={(e) => setDescription(e.target.value)}
+				/>
+				<select
+					className="form-control"
+					value={categoryId}
+					onChange={(e) => setCategoryId(e.target.value)}
+				>
+					<option>select a category</option>
+					{createCategoryList(category.categories).map((option) => {
+						return (
+							<option key={option.value} value={option.value}>
+								{option.name}
+							</option>
+						);
+					})}
+				</select>
+				{images.length > 0
+					? images.map((pic, index) => (
+							<div key={index}>{pic.name}</div>
+					  ))
+					: null}
+				<input type="file" name="images" onChange={handleImages} />
 			</Modal>
 		</Layout>
 	);
